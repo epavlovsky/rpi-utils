@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Check if the script is being run as root
+# If not, exit the script and display an error message with red text
+if [ "$(id -u)" -ne 0 ]; then
+    echo "\033[0;31mThis script must be run as root\033[0m" 1>&2
+    exit 1
+fi
+
+
+# Update the package list and upgrade all installed packages
+# Then remove all obsolete packages and clean the package cache
+apt update && apt upgrade -y && apt autoremove -y && apt autoclean -y
+
